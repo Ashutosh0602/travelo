@@ -1,5 +1,6 @@
 const multer = require("multer");
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const sharp = require("sharp");
 const userM = require("../modals/user");
 const AppError = require("../utils/apiError");
@@ -20,10 +21,14 @@ const multerStorage = multer.memoryStorage(); // Shifting to memory Storage
 // because resizing is done from buffer state
 
 const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
-    cb(null, true);
-  } else {
-    cb(new AppError("Select only single Image file...", 400), false);
+  try {
+    if (file.mimetype.startsWith("image")) {
+      cb(null, true);
+    } else {
+      cb(new AppError("Select only single Image file...", 400), false);
+    }
+  } catch (error) {
+    new AppError("Select only single Image file...", 400);
   }
 };
 
@@ -54,11 +59,15 @@ exports.resizeUserPhoto = async (req, res, next) => {
 // Create / sing up new user
 exports.createUser = async (req, res) => {
   try {
-    const newUser = await userM
-      .insertMany(req.body)
-      .then((data) => console.log(data));
+    const newUser = await userM.create(req.body);
+
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_secret, {
+      expiresIn: process.env.JWT_expires,
+    });
+
     res.status(200).json({
       status: "success",
+      token,
       data: newUser,
     });
     // const newUser = new userM(req.body);
@@ -84,7 +93,7 @@ exports.createPhoto = async (req, res, next) => {
     });
     res.status(200).json({ stats: "success", data: update });
   } catch (error) {
-    res.status(400).json({ status: "failed" });
+    res.status(404).json({ status: "failed", message: error });
   }
 };
 
