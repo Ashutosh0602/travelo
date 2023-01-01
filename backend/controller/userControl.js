@@ -56,35 +56,13 @@ exports.resizeUserPhoto = async (req, res, next) => {
   next();
 };
 
-// Create / sing up new user
-exports.createUser = async (req, res) => {
-  try {
-    const newUser = await userM.create(req.body);
-
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_secret, {
-      expiresIn: process.env.JWT_expires,
-    });
-
-    res.status(200).json({
-      status: "success",
-      token,
-      data: newUser,
-    });
-    // const newUser = new userM(req.body);
-    // newUser.save().then((doc) => {
-    //   console.log(doc);
-    // });
-  } catch (error) {
-    res.status(400).json({ status: "Server error", message: error });
-  }
-};
-
 // uploading of photo
 exports.createPhoto = async (req, res, next) => {
+  // console.log(req.file, req.body);
+  // console.log(req.file, req.body);
   if (req.body == null) {
     return next(new AppError("Something is missing", 400));
   }
-  // console.log(req.file, req.body);
   try {
     const profilePhoto = { profilePhoto: req.file.filename };
     const update = await userM.findOneAndUpdate(req.body, profilePhoto, {
@@ -93,7 +71,7 @@ exports.createPhoto = async (req, res, next) => {
     });
     res.status(200).json({ stats: "success", data: update });
   } catch (error) {
-    res.status(404).json({ status: "failed", message: error });
+    res.status(404).json({ status: "failed", message: "error" });
   }
 };
 

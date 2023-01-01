@@ -18,6 +18,7 @@ const userModal = new mongoose.Schema({
     unique: [true, "A unique email is required"],
     lowercase: true,
     validator: [validator.isEmail, "Please provide a valid email"],
+    select: false,
   },
   password: {
     type: String,
@@ -35,6 +36,7 @@ const userModal = new mongoose.Schema({
       message: "Password are not same",
     },
   },
+  passwordChangeAt: Date,
   city: {
     type: String,
     required: [true, "A city is mandatory"],
@@ -67,6 +69,7 @@ const userModal = new mongoose.Schema({
     },
   },
   profilePhoto: String,
+  coverPhoto: String,
 });
 
 userModal.pre("save", async function (next) {
@@ -86,6 +89,18 @@ userModal.methods.correctPassword = async function (
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+userModal.methods.changedPasswordAfter = function (JWTtimeStamp) {
+  if (this.passwordChangeAt) {
+    const changedTimeStamp = parseInt(
+      this.passwordChangeAt.getTime() / 1000,
+      10
+    );
+    console.log(this.passwordChangeAt, JWTtimeStamp);
+    return JWTtimeStamp < changedTimeStamp;
+  }
+  return false; //False means not changed
 };
 
 const userM = mongoose.model("TravelUser", userModal);

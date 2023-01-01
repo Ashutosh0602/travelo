@@ -6,9 +6,15 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3003;
 app.use(express.json());
+app.use(express.static(`${__dirname}/public`));
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "./db.env" });
+
+app.use((req, res, next) => {
+  // console.log(req.headers);
+  next();
+});
 
 // Database connection
 const mongoose = require("mongoose");

@@ -7,9 +7,9 @@ router.param("/", (req, res, next) => {
   next();
 });
 
-router.route("/").get(usercontrol.findUser);
+router.route("/").get(authcontrol.protect, usercontrol.findUser);
 
-router.route("/signUp").post(usercontrol.createUser);
+router.route("/signUp").post(authcontrol.createUser);
 router.route("/login").post(authcontrol.logIn);
 router
   .route("/completeProfile")
