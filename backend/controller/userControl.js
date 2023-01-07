@@ -50,7 +50,7 @@ exports.resizeUserPhoto = async (req, res, next) => {
   await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat("jpeg")
-    .jpeg({ quality: 90 })
+    .jpeg({ quality: 70 })
     .toFile(`./public/img/users/${req.file.filename}`);
 
   next();
@@ -58,8 +58,7 @@ exports.resizeUserPhoto = async (req, res, next) => {
 
 // uploading of photo
 exports.createPhoto = async (req, res, next) => {
-  // console.log(req.file, req.body);
-  // console.log(req.file, req.body);
+  console.log(req.body);
   if (req.body == null) {
     return next(new AppError("Something is missing", 400));
   }
@@ -71,7 +70,7 @@ exports.createPhoto = async (req, res, next) => {
     });
     res.status(200).json({ stats: "success", data: update });
   } catch (error) {
-    res.status(404).json({ status: "failed", message: "error" });
+    res.status(404).json({ status: "failed", message: error });
   }
 };
 
