@@ -4,7 +4,7 @@ const viewModal = new mongoose.Schema({
   userID: String,
   gallery: [
     {
-      photoID: String,
+      photoID: [{ type: String }],
       count: {
         heart: {
           type: Number,

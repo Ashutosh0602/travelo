@@ -63,22 +63,37 @@ exports.uploadGallery = async (req, res) => {
       .status(401)
       .json({ status: "failed", message: "empty data is send" });
   }
-  let updatePhoto;
+  let uploadPhoto;
   try {
     const existUser = await viewM.findOne({ userID: req.body.name });
-    if (existUser) {
-      console.log(req.body.newPhoto.length, existUser);
-    }
+    // console.log(req.body.newPhoto.length, existUser);
 
-    // for (let i = 0; i < req.body.newPhoto.length; i++) {
-    //   updatePhoto = await viewM.create({
-    //     userID: req.body.name,
-    //     gallery: {
-    //       photoID: req.body.newPhoto[1],
-    //     },
-    //   });
-    // }
-  } catch (error) {}
+    // If user found in database then update the profile
+    if (existUser) {
+      // for (let i = 0; i < req.body.newPhoto.length; i++) {
+      uploadPhoto = await viewM.findOneAndUpdate(
+        { userID: req.body.name },
+        {
+          $push: { gallery: { photoID: req.body.newPhoto } },
+        }
+      );
+      // }
+    } else {
+      // Otherwise create new database for the existing user
+      for (let i = 0; i < req.body.newPhoto.length; i++) {
+        uploadPhoto = await viewM.create({
+          userID: req.body.name,
+          gallery: {
+            photoID: req.body.newPhoto,
+          },
+        });
+      }
+    }
+  } catch (error) {
+    return res
+      .status(401)
+      .json({ status: "failed", message: "Something went wrong" });
+  }
 
   // const newUser = new viewM(req.body);
   // newUser.save().then((doc) => {
@@ -88,6 +103,6 @@ exports.uploadGallery = async (req, res) => {
   //   console.log(req.body);
   res.status(200).json({
     status: "success",
-    data: updatePhoto,
+    data: uploadPhoto,
   });
 };
