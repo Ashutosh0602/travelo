@@ -2,16 +2,25 @@ const express = require("express");
 const usercontrol = require("../controller/userControl");
 const authcontrol = require("../controller/authControl");
 const viewControl = require("../controller//viewControl");
+const travellercontrol = require("../controller/travellerControl");
+const packageControl = require("../controller/packageControl");
 
 const router = express.Router();
 router.param("/", (req, res, next) => {
   next();
 });
 
-router.route("/").get(authcontrol.protect, usercontrol.findUser);
+router.route("/").get(usercontrol.homePage);
 
-router.route("/signUp").post(authcontrol.createUser);
+router.route("/account/:userId").get(authcontrol.protect, usercontrol.findUser);
+
+router.route("/account/:userId/:travellerId").get(travellercontrol.traveller);
+
 router.route("/login").post(authcontrol.logIn);
+router.route("/signUp").post(authcontrol.createUser);
+
+router.route("/account/:userId/package").post(packageControl.package);
+
 router
   .route("/completeProfile")
   .post(

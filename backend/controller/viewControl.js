@@ -70,24 +70,21 @@ exports.uploadGallery = async (req, res) => {
 
     // If user found in database then update the profile
     if (existUser) {
-      // for (let i = 0; i < req.body.newPhoto.length; i++) {
       uploadPhoto = await viewM.findOneAndUpdate(
         { userID: req.body.name },
         {
           $push: { gallery: { photoID: req.body.newPhoto } },
         }
       );
-      // }
     } else {
       // Otherwise create new database for the existing user
-      for (let i = 0; i < req.body.newPhoto.length; i++) {
-        uploadPhoto = await viewM.create({
-          userID: req.body.name,
-          gallery: {
-            photoID: req.body.newPhoto,
-          },
-        });
-      }
+
+      uploadPhoto = await viewM.create({
+        userID: req.body.name,
+        gallery: {
+          photoID: req.body.newPhoto,
+        },
+      });
     }
   } catch (error) {
     return res

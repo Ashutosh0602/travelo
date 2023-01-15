@@ -5,18 +5,6 @@ const sharp = require("sharp");
 const userM = require("../modals/user");
 const AppError = require("../utils/apiError");
 
-// Storing and uploading photos
-
-// const multerStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "./public/img");
-//   },
-//   filename: (req, file, cb) => {
-//     const ext = file.mimetype.split("/")[1];
-//     cb(null, `user-${req.body.id}-${Date.now()}.${ext}`);
-//   },
-// });
-
 const multerStorage = multer.memoryStorage(); // Shifting to memory Storage
 // because resizing is done from buffer state
 
@@ -77,7 +65,16 @@ exports.createPhoto = async (req, res, next) => {
 // Get user for home page
 exports.findUser = async (req, res) => {
   try {
-    const user = await userM.find();
-    res.status(200).json({ status: "success", data: user });
-  } catch (error) {}
+    // console.log(req.user);
+    // const user = await userM.findOne({ id: req.params.userId });
+    res.status(200).json({ status: "success", data: req.user });
+  } catch (error) {
+    return res.status(401).json({ status: "failed", message: error });
+  }
+};
+
+exports.homePage = (req, res) => {
+  return res
+    .status(200)
+    .json({ status: "success", message: "follow another page" });
 };
