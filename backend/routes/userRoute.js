@@ -19,7 +19,13 @@ router.route("/account/:userId/:travellerId").get(travellercontrol.traveller);
 router.route("/login").post(authcontrol.logIn);
 router.route("/signUp").post(authcontrol.createUser);
 
-router.route("/account/:userId/package").post(packageControl.package);
+router
+  .route("/account/:userId/package")
+  .post(
+    packageControl.uploadBanner,
+    packageControl.resizeUserBanner,
+    packageControl.package
+  );
 
 router
   .route("/completeProfile")
