@@ -27,9 +27,9 @@ const packageModal = new mongoose.Schema({
   trvellers: {
     type: Number,
   },
-  Template: {
+  bannerPhoto: {
     type: String,
-    // require:[true,'Provide a template for the package']
+    require: [true, "Provide a template for the package"],
   },
 });
 

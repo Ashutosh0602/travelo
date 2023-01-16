@@ -1,5 +1,6 @@
 const multer = require("multer");
 const sharp = require("sharp");
+const packM = require("../modals/package");
 
 const multerStorage = multer.memoryStorage();
 
@@ -25,7 +26,8 @@ exports.uploadBanner = upload.single("bannerPhoto");
 exports.resizeUserBanner = async (req, res, next) => {
   if (!req.file) return next();
 
-  req.file.filename = `user-${req.body.id}-${Date.now()}.jpeg`;
+  req.file.filename = `user-${req.body.userId}-${Date.now()}.jpeg`;
+  req.body.bannerPhoto = req.file.filename;
 
   await sharp(req.file.buffer)
     .resize(1000, 500)
@@ -37,5 +39,23 @@ exports.resizeUserBanner = async (req, res, next) => {
 };
 
 exports.package = async (req, res) => {
-  res.status(201).json({ status: "success", data: req.body });
+  console.log(req.query);
+  if (!req.file.filename) {
+    return res.status(401).json({
+      status: "failed",
+      message: "File error",
+    });
+  }
+  try {
+    const upload = await packM.create({
+      ...req.body,
+      bannerPhoto: req.file.filename,
+    });
+
+    res.status(201).json({ status: "success", data: upload });
+  } catch (error) {
+    res
+      .status(401)
+      .json({ status: "failed", message: "Something went wrong", err: error });
+  }
 };
