@@ -24,6 +24,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/signIn" />} />
         <Route path="signIn" element={<SignIn />} />
         <Route path="signUp" element={<SignUp />} />
+        <Route path="username" element={<SignUp />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Suspense>
