@@ -1,0 +1,49 @@
+.logIn {
+  background-color: #0b0f1f;
+  width: 100vw;
+  height: 100vh;
+}
+.form_img {
+  position: relative;
+}
+.form {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-30%);
+}
+.img_log {
+  /* position: relative; */
+}
+.form_elem {
+  width: 145%;
+  text-align: center;
+  margin-top: 0.35rem;
+  /* background-color: black; */
+}
+.form_elem > input {
+  outline: none;
+  width: 80%;
+  height: 2.5rem;
+  border: 2px rgb(184, 183, 183) solid;
+  border-radius: 4px;
+  padding-left: 0.25rem;
+  color: #0b0f1f;
+}
+.form_elem:nth-child(3) {
+  margin-top: 2rem;
+  /* width: 100%; */
+}
+.form_elem:nth-child(3) > button {
+  background-color: #0b0f1f;
+  color: white;
+  padding: 0.25rem;
+  width: 80%;
+}
+.form_elem:nth-child(4) {
+}
+.form_elem:nth-child(4) > button {
+  width: 80%;
+  border: 2px rgb(184, 183, 183) solid;
+  border-radius: 4px;
+}
