@@ -3,9 +3,9 @@ import "./Loader.css";
 
 export default function Loader() {
   return (
-    <div class="wrap">
-      <div class="loading">
-        <div class="bounceball"></div>
+    <div className="wrap">
+      <div className="loading">
+        <div className="bounceball"></div>
       </div>
     </div>
   );

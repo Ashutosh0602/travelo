@@ -9,17 +9,12 @@
 .form {
   position: absolute;
   top: 25%;
-  left: 50%;
-  transform: translateX(-30%);
-}
-.img_log {
-  /* position: relative; */
+  left: 43.5%;
+  width: 35%;
 }
 .form_elem {
-  width: 155%;
   text-align: center;
   margin-top: 0.35rem;
-  /* background-color: black; */
 }
 .form_elem > input {
   outline: none;
@@ -32,7 +27,6 @@
 }
 .form_elem:nth-child(3) {
   margin-top: 2rem;
-  /* width: 100%; */
 }
 .form_elem:nth-child(3) > button {
   background-color: #0b0f1f;
@@ -49,4 +43,9 @@
 }
 .form_elem > button:active {
   background-color: #0a0c1aaf;
+}
+.form_loader {
+  position: absolute;
+  top: 60%;
+  left: 61%;
 }
