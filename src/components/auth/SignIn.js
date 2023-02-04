@@ -2,38 +2,39 @@ import React, { useState } from "react";
 import logSvg from "../../assets/log.svg";
 import classes from "./SignIn.module.css";
 import Loader from "../loader/Loader";
+import { userAction } from "../state/state";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function SignIn() {
+  const userDetail = useSelector((state) => state.userProfile.user);
+  // console.log(userDetail.then((res) => res));
+
+  const dispatch = useDispatch();
+
   const [email, setemail] = useState(null);
   const [password, setpassword] = useState(null);
   const [load, setload] = useState(false);
   const [message, setmessage] = useState(null);
+  const [token, settoken] = useState(null);
 
-  async function login() {
+  // console.log(userDetail);
+
+  function login() {
+    // console.log(userDetail);
     setload(true);
+    dispatch(userAction.login([password, email]));
+    userDetail.then((res) => settoken(res[0]));
 
-    const token = await fetch("http://localhost:3003/login", {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    }).then((res) => res.json());
-    // .then((res) => console.log(res));
+    // console.log(token["status"]);
 
     if (token["status"] === "failed") {
       setmessage(token["message"]);
     }
     // console.log(message);
-
     token["status"] === "success"
-      ? window.location.replace("http://localhost:3000/home")
+      ? window.location.replace(
+          `http://localhost:3000/account/${token["user"]}`
+        )
       : setload(false);
   }
 
@@ -62,6 +63,7 @@ export default function SignIn() {
             />
           </div>
           <div className={` ${classes.form_elem}`}>
+            {/* <button>Log In</button> */}
             <button onClick={login}>Log In</button>
           </div>
           <div className={classes.form_elem}>

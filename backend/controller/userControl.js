@@ -65,9 +65,9 @@ exports.createPhoto = async (req, res, next) => {
 // Get user for home page
 exports.findUser = async (req, res) => {
   try {
-    // console.log(req.user);
-    // const user = await userM.findOne({ id: req.params.userId });
-    res.status(200).json({ status: "success", data: req.user });
+    console.log(req.params);
+    const user = await userM.findOne({ id: req.params.userId }).select("-_id");
+    res.status(200).json({ status: "success", data: user });
   } catch (error) {
     return res.status(401).json({ status: "failed", message: error });
   }
