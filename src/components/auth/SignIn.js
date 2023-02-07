@@ -4,37 +4,46 @@ import classes from "./SignIn.module.css";
 import Loader from "../loader/Loader";
 import { userAction } from "../state/state";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const userDetail = useSelector((state) => state.userProfile.user);
-  // console.log(userDetail.then((res) => res));
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [email, setemail] = useState(null);
   const [password, setpassword] = useState(null);
   const [load, setload] = useState(false);
   const [message, setmessage] = useState(null);
-  const [token, settoken] = useState(null);
 
-  // console.log(userDetail);
-
-  function login() {
-    // console.log(userDetail);
+  async function login() {
     setload(true);
-    dispatch(userAction.login([password, email]));
-    userDetail.then((res) => settoken(res[0]));
 
-    // console.log(token["status"]);
+    const token = await fetch("http://localhost:3005/login", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    }).then((res) => res.json());
+
+    console.log(token);
 
     if (token["status"] === "failed") {
       setmessage(token["message"]);
+    } else {
+      dispatch(userAction.login(token["token"]));
     }
-    // console.log(message);
+
     token["status"] === "success"
-      ? window.location.replace(
-          `http://localhost:3000/account/${token["user"]}`
-        )
+      ? navigate(`/account/${token["user"]}`)
       : setload(false);
   }
 

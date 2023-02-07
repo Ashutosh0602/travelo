@@ -1,28 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-async function login(payload) {
-  const token = await fetch("http://localhost:3003/login", {
-    method: "POST",
+// async function login(payload) {
+//   const token = await fetch("http://localhost:3003/login", {
+//     method: "POST",
 
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
+//     headers: {
+//       "Content-Type": "application/json",
+//       "Access-Control-Allow-Origin": "*",
+//     },
 
-    body: JSON.stringify({
-      email: payload[1],
-      password: payload[0],
-    }),
-  }).then((res) => res.json());
+//     body: JSON.stringify({
+//       email: payload[1],
+//       password: payload[0],
+//     }),
+//   }).then((res) => res.json());
 
-  return [token];
-}
+//   return [token];
+// }
 
 // async function home()
 
 //It's initial state
 const userState = {
-  user: "",
+  token: "",
+  user: null,
 };
 
 //Here creating an action feature
@@ -31,7 +32,10 @@ const userSlice = createSlice({
   initialState: userState,
   reducers: {
     login(state, action) {
-      state.user = login(action.payload);
+      state.token = action.payload;
+    },
+    home(state, action) {
+      state.user = action.payload;
     },
   },
 });
