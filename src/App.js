@@ -3,6 +3,9 @@ import "./App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Loader from "./components/loader/Loader";
 import Error from "./components/error/Error";
+import Layout from "./components/layout/Layout";
+import Chat from "./components/chat/Chat";
+import Explore from "./components/explore/Explore";
 
 const Home = React.lazy(() => import("./components/home/Home"));
 const Package = React.lazy(() => import("./components/package/Package"));
@@ -24,8 +27,17 @@ export default function App() {
         <Route path="/" element={<Navigate to="/signIn" />} />
         <Route path="signIn" element={<SignIn />} />
         <Route path="signUp" element={<SignUp />} />
-        <Route path="username" element={<SignUp />} />
-        <Route path="account/:userId" element={<Home />} />
+        {/* <Route path="username" element={<SignUp />} /> */}
+        {/* <Route path="account/:userId" element={<Home />} /> */}
+        <Route path="account/:userId" element={<Layout />}>
+          {/* <Route path=":userId" element={<Home />}> */}
+          <Route path="" element={<Home />} />
+          <Route path="chat" element={<Chat />} />
+          <Route path="explore" element={<Explore />} />
+          <Route path="package" element={<Package />} />
+          <Route path="profile" element={<Profile />} />
+          {/* </Route> */}
+        </Route>
         <Route path="*" element={<Error />} />
       </Routes>
     </Suspense>

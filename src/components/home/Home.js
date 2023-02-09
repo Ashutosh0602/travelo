@@ -1,5 +1,6 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import classes from "./Home.module.css";
+import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userAction } from "../state/state";
 
@@ -15,21 +16,25 @@ export default function Home() {
     userProf = state.userProfile.user;
   });
 
-  const userProfile = fetch(`http://localhost:3005/account/${param.userId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-      dispatch(userAction.home(res["data"]));
-    });
+  try {
+    const userProfile = fetch(`http://localhost:3005/account/${param.userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        dispatch(userAction.home(res["data"]));
+      });
 
-  console.log(userProf);
+    console.log(userProf);
+  } catch (error) {
+    console.log("Some problem occured try again later");
+  }
 
-  return <div>Home</div>;
+  return <section className={classes.home}>Home</section>;
 }

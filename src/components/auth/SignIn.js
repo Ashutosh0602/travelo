@@ -18,33 +18,40 @@ export default function SignIn() {
   const [message, setmessage] = useState(null);
 
   async function login() {
-    setload(true);
+    try {
+      setload(true);
 
-    const token = await fetch("http://localhost:3005/login", {
-      method: "POST",
+      const token = await fetch("http://localhost:3005/login", {
+        method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
 
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    }).then((res) => res.json());
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      }).then((res) => res.json());
 
-    console.log(token);
+      console.log(token);
 
-    if (token["status"] === "failed") {
-      setmessage(token["message"]);
-    } else {
-      dispatch(userAction.login(token["token"]));
+      if (token["status"] === "failed") {
+        setmessage(token["message"]);
+      } else {
+        dispatch(userAction.login(token["token"]));
+        dispatch(userAction.set(token["user"]));
+      }
+
+      token["status"] === "success"
+        ? navigate(`/account/${token["user"]}`)
+        : setload(false);
+    } catch (error) {
+      setload(false);
+      setmessage("Some problem occured!\nPlease try again later");
+      // console.log("some problem occured please try again later");
     }
-
-    token["status"] === "success"
-      ? navigate(`/account/${token["user"]}`)
-      : setload(false);
   }
 
   return (

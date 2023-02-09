@@ -1,6 +1,8 @@
 import React from "react";
 import classes from "./Package.module.css";
 
-export const Package = () => {
+const Package = () => {
   return <div>Package</div>;
 };
+
+export default Package;

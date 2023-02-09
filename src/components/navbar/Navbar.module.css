@@ -1,0 +1,26 @@
+.Navbar {
+  height: 100vh;
+  /* padding-left: 1rem; */
+
+  /* position: relative; */
+
+  background-color: #0a0c1a;
+}
+.Navbar_cont {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.Navbar_cont > div {
+  margin-top: 1.3rem;
+  padding-left: 1rem;
+  /* border-left: 3px solid red; */
+}
+.icon {
+  border-left: 1px solid red;
+  background-color: red;
+  width: 100%;
+}
+.icon_de {
+  border-left: none;
+}

@@ -24,6 +24,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const userState = {
   token: "",
   user: null,
+  userId: "",
 };
 
 //Here creating an action feature
@@ -36,6 +37,9 @@ const userSlice = createSlice({
     },
     home(state, action) {
       state.user = action.payload;
+    },
+    set(state, action) {
+      state.userId = action.payload;
     },
   },
 });
