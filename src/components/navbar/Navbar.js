@@ -22,6 +22,7 @@ const Navbar = () => {
             to={`/account/${userId}`}
           >
             <img className="w-9/12 p-2 " src={homeSvg} />
+            {/* <svg>{homeSvg}</svg> */}
           </NavLink>
         </div>
         <div>

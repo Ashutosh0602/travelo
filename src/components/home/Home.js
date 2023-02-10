@@ -4,6 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userAction } from "../state/state";
 
+import noti from "../../assets/Notification.svg";
+import setting from "../../assets/setting.svg";
+
 export default function Home() {
   const dispatch = useDispatch();
   const param = useParams();
@@ -36,5 +39,29 @@ export default function Home() {
     console.log("Some problem occured try again later");
   }
 
-  return <section className={classes.home}>Home</section>;
+  return (
+    <section className={classes.home}>
+      <div className={`${classes.home_cont}	`}>
+        <div className={`flex justify-between`}>
+          <div>
+            <input
+              className={`rounded ${classes.input_search}`}
+              type="text"
+              placeholder="Enter your query"
+            />
+          </div>
+          <div className={`flex justify-between`}>
+            <div>
+              <img src={noti} />
+            </div>
+            <div>
+              <img src={setting} />
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <div></div>
+    </section>
+  );
 }

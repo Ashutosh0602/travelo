@@ -16,11 +16,13 @@
   padding-left: 1rem;
   /* border-left: 3px solid red; */
 }
-.icon {
+.icon > img {
   border-left: 1px solid red;
-  background-color: red;
+  /* background-color: red; */
+  fill: red;
   width: 100%;
 }
-.icon_de {
+.icon_de > img {
   border-left: none;
+  fill: none;
 }

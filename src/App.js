@@ -16,13 +16,7 @@ const SignIn = React.lazy(() => import("./components/auth/SignIn"));
 
 export default function App() {
   return (
-    <Suspense
-      fallback={
-        <>
-          <Loader />
-        </>
-      }
-    >
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Navigate to="/signIn" />} />
         <Route path="signIn" element={<SignIn />} />

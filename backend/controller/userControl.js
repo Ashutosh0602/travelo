@@ -73,8 +73,9 @@ exports.findUser = async (req, res) => {
   }
 };
 
-exports.homePage = (req, res) => {
-  return res
-    .status(200)
-    .json({ status: "success", message: "follow another page" });
+exports.homePage = async (req, res) => {
+  const home_cont = await userM.find().populate({ message: { public: false } });
+  // const home_cont = await userM.find();
+  // home_cont['message'].map()
+  return res.status(200).json({ status: "success", message: home_cont });
 };

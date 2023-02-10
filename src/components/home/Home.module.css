@@ -3,3 +3,20 @@
   color: white;
   width: 100%;
 }
+.home_cont {
+  width: 60%;
+}
+.home_cont > div {
+  margin: 1rem;
+}
+.home_cont > div > div:nth-child(2) {
+  width: 5rem;
+}
+.input_search {
+  background-color: #ffffff58;
+  outline: none;
+  min-width: 15rem;
+  /* height: 2rem; */
+  padding: 0.3rem;
+  font-size: 90%;
+}
