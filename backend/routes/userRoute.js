@@ -10,7 +10,7 @@ router.param("/", (req, res, next) => {
   next();
 });
 
-router.route("/").get(usercontrol.homePage);
+router.route("/account/:userId/home").get(usercontrol.homePage);
 
 router.route("/account/:userId").get(authcontrol.protect, usercontrol.findUser);
 

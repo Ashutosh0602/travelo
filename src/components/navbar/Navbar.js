@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const userId = useSelector((state) => state.userProfile.userId);
-  console.log(userId);
+
   return (
     <section className={`${classes.Navbar}`}>
       <div className={classes.Navbar_cont}>

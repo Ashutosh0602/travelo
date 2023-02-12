@@ -1,5 +1,6 @@
 const multer = require("multer");
 const express = require("express");
+const path = require("path");
 const jwt = require("jsonwebtoken");
 const sharp = require("sharp");
 const userM = require("../modals/user");
@@ -74,8 +75,18 @@ exports.findUser = async (req, res) => {
 };
 
 exports.homePage = async (req, res) => {
-  const home_cont = await userM.find().populate({ message: { public: false } });
-  // const home_cont = await userM.find();
-  // home_cont['message'].map()
-  return res.status(200).json({ status: "success", message: home_cont });
+  const home_cont = await userM.aggregate([
+    { $match: { public: true } },
+    { $unset: ["password", "_id"] },
+  ]);
+
+  return res.status(200).json({
+    status: "success",
+    message: {
+      ...home_cont,
+      profile: path.resolve(
+        `/img/gallery/userGallery-Ashutosh-1673114425961.jpeg`
+      ),
+    },
+  });
 };

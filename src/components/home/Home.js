@@ -6,6 +6,7 @@ import { userAction } from "../state/state";
 
 import noti from "../../assets/Notification.svg";
 import setting from "../../assets/setting.svg";
+import Post from "./post/Post";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -33,15 +34,13 @@ export default function Home() {
         console.log(res);
         dispatch(userAction.home(res["data"]));
       });
-
-    console.log(userProf);
   } catch (error) {
     console.log("Some problem occured try again later");
   }
 
   return (
     <section className={classes.home}>
-      <div className={`${classes.home_cont}	`}>
+      <div className={`w-2/4 ${classes.home_cont}	`}>
         <div className={`flex justify-between`}>
           <div>
             <input
@@ -59,7 +58,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div></div>
+        <div>
+          <Post props={[token, param.userId]} />
+        </div>
       </div>
       <div></div>
     </section>

@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 
+const path = require("path");
+
 const cors = require("cors");
 app.use(cors());
 
 const PORT = process.env.PORT || 3005;
 app.use(express.json());
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, "public")));
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "./db.env" });
