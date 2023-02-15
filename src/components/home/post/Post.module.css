@@ -1,1 +1,6 @@
-
+.post_img {
+  width: 50%;
+  background-position: center;
+  background-size: cover;
+  /* height: 50%; */
+}

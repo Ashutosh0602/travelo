@@ -4,6 +4,7 @@ const path = require("path");
 const jwt = require("jsonwebtoken");
 const sharp = require("sharp");
 const userM = require("../modals/user");
+const viewM = require("../modals/userPhoto");
 const AppError = require("../utils/apiError");
 
 const multerStorage = multer.memoryStorage(); // Shifting to memory Storage
@@ -75,18 +76,24 @@ exports.findUser = async (req, res) => {
 };
 
 exports.homePage = async (req, res) => {
-  const home_cont = await userM.aggregate([
+  const home_cont = await viewM.aggregate([
     { $match: { public: true } },
-    { $unset: ["password", "_id"] },
+    { $unset: ["_id"] },
   ]);
+
+  // const home_cont = await userM.aggregate([
+  //   { $match: { public: true } },
+  //   { $unset: ["password", "_id"] },
+  // ]);
 
   return res.status(200).json({
     status: "success",
     message: {
       ...home_cont,
-      profile: path.resolve(
-        `/img/gallery/userGallery-Ashutosh-1673114425961.jpeg`
-      ),
+      // profile: `/img/gallery/userGallery-Ashutosh-1673114425961.jpeg`,
+      // profile: path.resolve(
+      // `/img/gallery/userGallery-Ashutosh-1673114425961.jpeg`
+      // ),
     },
   });
 };

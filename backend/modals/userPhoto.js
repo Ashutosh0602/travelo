@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+const UserM = require("./user");
 
 const viewModal = new mongoose.Schema({
-  userID: String,
+  userID: { type: String, required: true },
+  public: { type: Boolean },
   gallery: [
     {
       photoID: [{ type: String }],
@@ -25,6 +27,14 @@ const viewModal = new mongoose.Schema({
       },
     },
   ],
+});
+
+viewModal.pre("save", async function (next) {
+  const id = await UserM.find({ id: this.userID });
+  this.public = id[0]["public"];
+  // this.gallery.public = id.public;
+  console.log(id[0]["public"]);
+  next();
 });
 
 const viewM = mongoose.model("TravelView", viewModal);
