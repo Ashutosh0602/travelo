@@ -88,12 +88,6 @@ exports.homePage = async (req, res) => {
 
   return res.status(200).json({
     status: "success",
-    message: {
-      ...home_cont,
-      // profile: `/img/gallery/userGallery-Ashutosh-1673114425961.jpeg`,
-      // profile: path.resolve(
-      // `/img/gallery/userGallery-Ashutosh-1673114425961.jpeg`
-      // ),
-    },
+    message: [home_cont],
   });
 };

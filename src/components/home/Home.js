@@ -31,7 +31,7 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         dispatch(userAction.home(res["data"]));
       });
   } catch (error) {

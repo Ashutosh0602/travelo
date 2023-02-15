@@ -19,36 +19,48 @@ async function page_load(props) {
 
 const Post = (props) => {
   const [errMess, seterrMess] = useState(null);
-  const [data, setdata] = useState({ message: { profile: "" } });
+  const [data, setdata] = useState(null);
+
+  // const [data, setdata] = useState({ message: { profile: "" } });
 
   let img;
 
   try {
     useEffect(() => {
       page_load(props["props"]).then((res) => setdata(res["message"]));
-    }, [errMess]);
-    for (let key in data) {
-      data[key]["gallery"].map((ls) => {
-        img = (
-          <img
-            className={`${classes.post_img}`}
-            src={`http://localhost:3005/img/gallery/${ls["photoID"][1]}`}
-          />
-        );
-        return img;
-        console.log(ls["photoID"]);
-      });
-    }
+      post_cont(data);
+      // console.log("hello world");
+    }, [page_load]);
+
+    // for (let key in data) {
+    //   console.log(data[key]);
+    //   img = data[key]["gallery"].map((ls) => {
+    //     let img_cont = (
+    //       <img
+    //         className={`${classes.post_img}`}
+    //         src={`http://localhost:3005/img/gallery/${ls["photoID"][1]}`}
+    //       />
+    //     );
+    //     return img_cont;
+    //     console.log(ls["photoID"]);
+    //   });
+    // }
 
     // #Creating template for post image
   } catch (error) {
     seterrMess("Something went wrong!");
   }
 
+  function post_cont(ls) {
+    // console.log(ls);
+    // console.log("hello");
+    ls[0].map((gs) => console.log(gs));
+  }
+
   return (
     <div>
       Post
-      {img}
+      {/* {post_cont(data)} */}
     </div>
   );
 };
