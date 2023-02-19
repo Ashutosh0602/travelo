@@ -4,3 +4,35 @@
   background-size: cover;
   /* height: 50%; */
 }
+
+.img_cont {
+  width: 100%;
+  /* height: 40rem; */
+  overflow: scroll;
+}
+.img_cont > img {
+  width: 100%;
+  height: auto;
+}
+.img_cont::-webkit-scrollbar-thumb {
+  display: none;
+}
+.post_div {
+  margin-bottom: 3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: #0a0c1a;
+}
+.bottom_svg {
+  width: 2rem;
+}
+.bottom_svg:nth-child(3) {
+  width: 3rem;
+}
+.city_name {
+  /* font-size: 0.75rem; */
+  color: rgb(170, 169, 169);
+  /* padding-left: 1rem; */
+  /* line-height: 0.4rem; */
+  font-style: italic;
+}

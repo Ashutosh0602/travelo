@@ -7,6 +7,7 @@ import { userAction } from "../state/state";
 import noti from "../../assets/Notification.svg";
 import setting from "../../assets/setting.svg";
 import Post from "./post/Post";
+import Trend from "./trend/Trend";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export default function Home() {
   }
 
   return (
-    <section className={classes.home}>
+    <section className={`flex justify-around ${classes.home}`}>
       <div className={`w-2/4 ${classes.home_cont}	`}>
         <div className={`flex justify-between`}>
           <div>
@@ -62,7 +63,9 @@ export default function Home() {
           <Post props={[token, param.userId]} />
         </div>
       </div>
-      <div></div>
+      <div>
+        <Trend />
+      </div>
     </section>
   );
 }

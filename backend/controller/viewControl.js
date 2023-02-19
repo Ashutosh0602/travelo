@@ -38,7 +38,8 @@ exports.resizeGallery = async (req, res, next) => {
         const filename = `userGallery-${req.body.name}-${Date.now()}.jpeg`;
 
         await sharp(file.buffer)
-          .resize(800, 1000)
+          .resize(1000, 600)
+          .withMetadata()
           .toFormat("jpeg")
           .jpeg({ quality: 90 })
           .toFile(`./public/img/gallery/${filename}`);
@@ -73,7 +74,9 @@ exports.uploadGallery = async (req, res) => {
       uploadPhoto = await viewM.findOneAndUpdate(
         { userID: req.body.name },
         {
-          $push: { gallery: { photoID: req.body.newPhoto } },
+          $push: {
+            gallery: { photoID: req.body.newPhoto, city: req.body.city },
+          },
         }
       );
     } else {
@@ -83,6 +86,7 @@ exports.uploadGallery = async (req, res) => {
         userID: req.body.name,
         gallery: {
           photoID: req.body.newPhoto,
+          city: req.body.city,
         },
       });
     }

@@ -8,6 +8,7 @@ const viewModal = new mongoose.Schema([
     gallery: [
       {
         photoID: [{ type: String }],
+        city: { type: String, require: [true, "Provide a city name"] },
         count: {
           heart: {
             type: Number,

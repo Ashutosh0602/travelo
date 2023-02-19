@@ -31,6 +31,7 @@ exports.resizeUserBanner = async (req, res, next) => {
 
   await sharp(req.file.buffer)
     .resize(1000, 500)
+    .withMetadata()
     .toFormat("jpeg")
     .jpeg({ quality: 70 })
     .toFile(`./public/img/template/${req.file.filename}`);
