@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&display=swap");
+
+.place {
+  background-color: #0a0c1a;
+  max-width: 100%;
+  padding: 1rem;
+  margin: 1rem;
+}
+.place > h2 {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 1000;
+}
+.place > p {
+  font-style: italic;
+  font-family: "Ubuntu", sans-serif;
+  color: grey;
+  font-weight: thin;
+}
+.more {
+  font-style: normal;
+  color: rgb(195, 195, 195);
+}

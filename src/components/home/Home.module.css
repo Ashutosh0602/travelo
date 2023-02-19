@@ -1,10 +1,28 @@
 .home {
   background-color: #09102e;
   color: white;
+  flex-wrap: wrap;
   width: 100%;
   height: 100vh;
-  overflow: scroll;
+  overflow: hidden;
   scrollbar-width: none;
+  /* position: relative; */
+}
+.post_home {
+  height: 90vh;
+  overflow: scroll;
+}
+@media only screen and (max-width: 775px) {
+  .home > div:nth-child(1) {
+    width: 100%;
+  }
+  .home > div:nth-child(2) {
+    display: none;
+  }
+}
+.home > div:nth-child(2) {
+  /* background-color: white; */
+  max-width: 30rem;
 }
 .home_cont {
   /* width: 60%; */
@@ -22,4 +40,9 @@
   /* height: 2rem; */
   padding: 0.3rem;
   font-size: 90%;
+}
+div.trend {
+  position: sticky;
+  right: 0;
+  top: 0;
 }

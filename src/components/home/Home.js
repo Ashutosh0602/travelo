@@ -59,11 +59,11 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div>
+        <div className={`${classes.post_home}`}>
           <Post props={[token, param.userId]} />
         </div>
       </div>
-      <div>
+      <div className={`${classes.trend}`}>
         <Trend />
       </div>
     </section>
