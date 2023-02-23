@@ -4,7 +4,7 @@ import classes from "./SignIn.module.css";
 import Loader from "../loader/Loader";
 import { userAction } from "../state/state";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const userDetail = useSelector((state) => state.userProfile.user);
@@ -83,7 +83,9 @@ export default function SignIn() {
             <button onClick={login}>Log In</button>
           </div>
           <div className={classes.form_elem}>
-            <button>Create New Account</button>
+            <button>
+              <Link to="/signUp">Create New Account</Link>
+            </button>
           </div>
           <div className="text-slate-700">
             <span className="cursor-pointer">Forgot password?</span>
