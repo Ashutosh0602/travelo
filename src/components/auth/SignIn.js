@@ -84,7 +84,9 @@ export default function SignIn() {
           </div>
           <div className={classes.form_elem}>
             <button>
-              <Link to="/signUp">Create New Account</Link>
+              <Link className={classes.create_link} to="/signUp">
+                Create New Account
+              </Link>
             </button>
           </div>
           <div className="text-slate-700">

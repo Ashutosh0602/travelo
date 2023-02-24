@@ -4,9 +4,9 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Loader from "./components/loader/Loader";
 import Error from "./components/error/Error";
 import Layout from "./components/layout/Layout";
-import Chat from "./components/chat/Chat";
 import Explore from "./components/explore/Explore";
 
+const Chat = React.lazy(() => import("./components/chat/Chat"));
 const Home = React.lazy(() => import("./components/home/Home"));
 const Package = React.lazy(() => import("./components/package/Package"));
 const Profile = React.lazy(() => import("./components/profile./Profile"));
