@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import world from "../../assets/Destination.svg";
 // import world from "../../assets/Travelers.svg";
 import classes from "./SignUp.module.css";
 import { Link } from "react-router-dom";
 
 export default function SignUp() {
+  const [Fname, setFname] = useState(null);
+  const [Sname, setSname] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [cpassword, setCpassword] = useState(null);
+  const [errMess, setErrMess] = useState(null);
+  const [city, setCity] = useState(null);
+  const [country, setCountry] = useState(null);
+
   return (
     <section className={classes.signup}>
       <div className={classes.signup_img}>
@@ -21,25 +30,45 @@ export default function SignUp() {
             <div>
               <label for="First">First Name</label>
             </div>
-            <input id="First" type="text" placeholder="First Name" />
+            <input
+              id="First"
+              type="text"
+              placeholder="First Name"
+              onChange={(e) => setFname(e.target.value)}
+            />
           </div>
           <div>
             <div>
               <label for="last">Last Name</label>
             </div>
-            <input id="last" type="text" placeholder="Last Name" />
+            <input
+              id="last"
+              type="text"
+              placeholder="Last Name"
+              onChange={(e) => setSname(e.target.value)}
+            />
           </div>
           <div>
             <div>
               <label for="email">Email</label>
             </div>
-            <input id="email" type="email" placeholder="Email" />
+            <input
+              id="email"
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div>
             <div>
               <label for="passcode">Passowrd</label>
             </div>
-            <input id="passcode" type="password" placeholder="Password" />
+            <input
+              id="passcode"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div>
             <div>
@@ -49,7 +78,14 @@ export default function SignUp() {
               id="password"
               type="password"
               placeholder="Confirm Password"
+              onChange={(e) => {
+                if (e.target.value === password) {
+                  return setErrMess("");
+                }
+                setErrMess("The password is not matching!!");
+              }}
             />
+            <p>{errMess}</p>
           </div>
           <div>
             <button>Submit</button>
