@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import world from "../../assets/Destination.svg";
 // import world from "../../assets/Travelers.svg";
 import classes from "./SignUp.module.css";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 
 export default function SignUp() {
   const [Fname, setFname] = useState(null);
@@ -13,6 +13,18 @@ export default function SignUp() {
   const [errMess, setErrMess] = useState(null);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
+
+  function signUP() {
+    const obj = {
+      name: `${Fname} ${Sname}`,
+      email: email,
+      password: password,
+      passwordConfirm: cpassword,
+      city: city,
+      country: country,
+    };
+    console.log(obj);
+  }
 
   return (
     <section className={classes.signup}>
@@ -85,10 +97,10 @@ export default function SignUp() {
                 setErrMess("The password is not matching!!");
               }}
             />
-            <p>{errMess}</p>
+            <p className="text-red-500">{errMess}</p>
           </div>
           <div>
-            <button>Submit</button>
+            <button onClick={signUP}>Submit</button>
           </div>
         </div>
       </div>
