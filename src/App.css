@@ -4,3 +4,7 @@
   font-size: 16px;
   font-family: "Mukta", sans-serif;
 }
+::selection {
+  background-color: white;
+  color: black;
+}

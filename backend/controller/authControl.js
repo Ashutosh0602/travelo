@@ -14,7 +14,9 @@ const signToken = (id) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const newUser = await userM.create(req.body);
+    const uID = `@${req.body.obj.name}345`;
+    console.log({ ...req.body.obj, id: uID });
+    const newUser = await userM.create({ ...req.body.obj, id: uID });
 
     const token = signToken(newUser._id);
 

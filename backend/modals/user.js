@@ -39,11 +39,11 @@ const userModal = new mongoose.Schema({
   passwordChangeAt: Date,
   city: {
     type: String,
-    required: [true, "A city is mandatory"],
+    // required: [true, "A city is mandatory"],
   },
   country: {
     type: String,
-    required: [true, "A country is mandatory"],
+    // required: [true, "A country is mandatory"],
   },
   visited: {
     type: Number,

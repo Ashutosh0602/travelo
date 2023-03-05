@@ -55,7 +55,7 @@ const Post = (props) => {
               </div>
               {/* <div className={classes.city_name}>{ph["city"]}</div> */}
               <div
-                className={`flex overflow-scroll my-1.5 ${classes.img_cont}`}
+                className={`flex justify-items-center content-center overflow-scroll my-1.5 ${classes.img_cont}`}
               >
                 {ph["photoID"].map((arr) => {
                   const img_arr = (

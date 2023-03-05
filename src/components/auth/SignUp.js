@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import world from "../../assets/Destination.svg";
 // import world from "../../assets/Travelers.svg";
 import classes from "./SignUp.module.css";
-import { Link, json } from "react-router-dom";
+import { Link, Navigate, json, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [Fname, setFname] = useState(null);
@@ -13,8 +13,9 @@ export default function SignUp() {
   const [errMess, setErrMess] = useState(null);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
+  const navigate = useNavigate();
 
-  function signUP() {
+  async function create() {
     const obj = {
       name: `${Fname} ${Sname}`,
       email: email,
@@ -23,7 +24,29 @@ export default function SignUp() {
       city: city,
       country: country,
     };
-    console.log(obj);
+    // console.log(obj);
+
+    const token = await fetch("http://localhost:3005/signup", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+
+      body: JSON.stringify({
+        obj,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.status == "success") {
+          navigate("/signIn");
+        }
+      });
+
+    console.log(token);
   }
 
   return (
@@ -91,7 +114,9 @@ export default function SignUp() {
               type="password"
               placeholder="Confirm Password"
               onChange={(e) => {
+                setCpassword(e.target.value);
                 if (e.target.value === password) {
+                  console.log(cpassword);
                   return setErrMess("");
                 }
                 setErrMess("The password is not matching!!");
@@ -100,7 +125,7 @@ export default function SignUp() {
             <p className="text-red-500">{errMess}</p>
           </div>
           <div>
-            <button onClick={signUP}>Submit</button>
+            <button onClick={create}>Submit</button>
           </div>
         </div>
       </div>
