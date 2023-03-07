@@ -17,9 +17,6 @@
   width: 100%;
   height: fit-content;
 }
-/* .img_cont::-webkit-scrollbar-thumb {
-  display: none;
-} */
 .img_slide {
   display: inline-block;
   max-width: 100%;

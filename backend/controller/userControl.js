@@ -1,7 +1,4 @@
 const multer = require("multer");
-const express = require("express");
-const path = require("path");
-const jwt = require("jsonwebtoken");
 const sharp = require("sharp");
 const userM = require("../modals/user");
 const viewM = require("../modals/userPhoto");
@@ -11,6 +8,7 @@ const multerStorage = multer.memoryStorage(); // Shifting to memory Storage
 // because resizing is done from buffer state
 
 const multerFilter = (req, file, cb) => {
+  console.log(file);
   try {
     if (file.mimetype.startsWith("image")) {
       cb(null, true);
@@ -33,6 +31,7 @@ exports.uploadPhoto = upload.single("profilePhoto");
 
 // Resizing of uploading photo
 exports.resizeUserPhoto = async (req, res, next) => {
+  console.log(req.file);
   if (!req.file) return next();
 
   req.file.filename = `user-${req.body.id}-${Date.now()}.jpeg`;
@@ -49,7 +48,6 @@ exports.resizeUserPhoto = async (req, res, next) => {
 
 // uploading of photo
 exports.createPhoto = async (req, res, next) => {
-  console.log(req.body);
   if (req.body == null) {
     return next(new AppError("Something is missing", 400));
   }

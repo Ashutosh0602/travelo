@@ -1,0 +1,53 @@
+.profile {
+  background-color: #09102e;
+  color: white;
+  overflow: hidden;
+}
+.coverpage {
+  height: 12rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  image-resolution: 100%;
+}
+.coverpage > img {
+  /* height: 10rem; */
+  height: 100%;
+  background-position: center;
+  overflow: hidden;
+  /* height: fit-content; */
+  width: fit-content;
+}
+.profileCover {
+  top: 50%;
+  width: 15rem;
+  z-index: 20;
+  height: 15rem;
+  left: 5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  outline: 1rem solid #09102e;
+}
+.addProfile {
+  position: absolute;
+  /* z-index: -10; */
+  visibility: hidden;
+  padding: 1rem;
+  border-radius: 50%;
+  background-color: #46454582;
+  width: 30%;
+  height: 30%;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  object-position: center;
+  transform: translate(-50%, -50%);
+}
+.profileCover:hover .addProfile {
+  visibility: visible;
+  cursor: pointer;
+}
+.addProfile > img {
+  width: 100%;
+  height: 100%;
+}

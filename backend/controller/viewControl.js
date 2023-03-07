@@ -58,7 +58,6 @@ exports.resizeGallery = async (req, res, next) => {
 };
 
 exports.uploadGallery = async (req, res) => {
-  console.log(req.body);
   if (req.body == null) {
     return res
       .status(401)
