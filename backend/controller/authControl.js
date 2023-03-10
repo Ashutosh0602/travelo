@@ -14,7 +14,10 @@ const signToken = (id) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const uID = `@${req.body.obj.name}345`;
+    let jn = req.body.obj.name.split(" ");
+    let fn = jn.join("_");
+
+    const uID = `@${fn}345`;
     console.log({ ...req.body.obj, id: uID });
     const newUser = await userM.create({ ...req.body.obj, id: uID });
 
