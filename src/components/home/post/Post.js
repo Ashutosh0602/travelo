@@ -3,7 +3,7 @@ import classes from "./Post.module.css";
 import anchor from "../../../assets/anchor.svg";
 import comment from "../../../assets/Comment.svg";
 import love from "../../../assets/love.svg";
-import { json } from "react-router-dom";
+import Profile from "../../profile./Profile";
 
 async function page_load(props) {
   const userProfile = await fetch(
@@ -34,9 +34,11 @@ const Post = (props) => {
   } catch (error) {
     seterrMess("Something went wrong!");
   }
+  // const filt = data[0].filter((e) => e["userID"] == "@dheeraj_dhyiurai_024");
 
   // #Creating template for post image
   function post_cont(ls) {
+    // console.log(filt[0]["gallery"]);
     try {
       const post = ls[0].map((gs) => {
         const cont = gs["gallery"].map((ph) => {
@@ -101,7 +103,17 @@ const Post = (props) => {
     }
   }
 
-  return <div className={``}>{post_cont(data)}</div>;
+  return (
+    <div className={``}>
+      {post_cont(data)}
+      <div style={{ display: "none" }}>
+        <Profile
+          post={data}
+          // post={data[0].filter((e) => e["userID"] == "@dheeraj_dhyiurai_024")}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Post;

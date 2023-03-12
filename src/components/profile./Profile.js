@@ -1,26 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import classes from "./Profile.module.css";
 
 import addProf from "../../assets/addProf.svg";
 import post from "../../assets/post.svg";
 import { useParams } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
-const Profile = () => {
+const Profile = (props) => {
   const param = useParams();
+  const [file, setFile] = useState();
+
+  useEffect(() => {
+    var filt;
+    try {
+      filt = props["post"][0].filter(
+        (e) => e["userID"] == "@dheeraj_dhyiurai_024"
+      );
+      console.log(filt);
+    } catch (error) {
+      console.log("not found");
+    }
+  }, [props]);
+
+  // console.log(props["post"]);
 
   const userDetail = useSelector((state) => state.userProfile.user);
-
-  const [file, setFile] = useState();
 
   const postPhoto = async () => {
     const formData = new FormData();
     formData.append("name", param["userId"]);
     formData.append("newPhoto", file);
-
-    // console.log(formData.forEach((e) => console.log(e)));
     formData.forEach((e) => console.log(e));
-    // console.log(formData);
     await fetch("http://localhost:3005/uploadGallery", {
       method: "POST",
       // headers: {
@@ -29,7 +40,40 @@ const Profile = () => {
       body: formData,
     })
       .then((response) => response.json())
-      .then((json) => console.log(json));
+      .then((js) => {
+        if (js["status"] == "failed") {
+          // toast(`Incomplete or Inappropriate data`, {
+          //   duration: 4000,
+          //   position: "top-center",
+
+          //   // Styling
+          //   style: {},
+          //   className: "",
+
+          //   // Custom Icon
+          //   icon: "❗️",
+
+          //   // Change colors of success/error/loading icon
+          //   iconTheme: {
+          //     primary: "#000",
+          //     secondary: "#fff",
+          //   },
+
+          //   // Aria
+          //   ariaProps: {
+          //     role: "status",
+          //     "aria-live": "polite",
+          //   },
+          // });
+          toast.error("Incomplete or Inappropriate Data");
+        } else {
+          toast.success("Upload Success");
+        }
+      });
+  };
+
+  const userPost = async () => {
+    await fetch("");
   };
   return (
     <section className={classes.profile}>
@@ -77,14 +121,16 @@ const Profile = () => {
                 type="file"
                 style={{ display: "none" }}
                 onChange={(e) => {
-                  setFile(e.target.files[0]);
+                  setFile(e.target.files);
                   postPhoto();
                 }}
+                multiple="multiple"
               />
             </label>
           </div>
         </div>
       </div>
+      <Toaster />
     </section>
   );
 };
