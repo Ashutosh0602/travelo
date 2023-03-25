@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 
+const rateLimit = require("express-rate-limit");
+
 const path = require("path");
 
 const cors = require("cors");
 app.use(cors());
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -17,6 +19,14 @@ app.use((req, res, next) => {
   // console.log(req.headers);
   next();
 });
+
+const limiter = rateLimit({
+  max: 200,
+  windowMs: 60 * 60 * 1000,
+  message: "Too many request from this IP, please try again in an hour!",
+});
+
+app.use("/account", limiter);
 
 // Database connection
 const mongoose = require("mongoose");

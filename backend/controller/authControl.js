@@ -13,6 +13,7 @@ const signToken = (id) => {
 };
 
 exports.createUser = async (req, res) => {
+  console.log(req.body);
   try {
     let jn = req.body.obj.name.split(" ");
     let fn = jn.join("_");
@@ -22,6 +23,17 @@ exports.createUser = async (req, res) => {
     const newUser = await userM.create({ ...req.body.obj, id: uID });
 
     const token = signToken(newUser._id);
+
+    const cookie_option = {
+      expires: new Date(
+        Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+      ),
+      httpOnly: true,
+    };
+
+    if (process.env.NODE_ENV === "production") cookie_option.secure = true;
+
+    res.cookie("token", token, cookie_option);
 
     res.status(200).json({
       status: "success",

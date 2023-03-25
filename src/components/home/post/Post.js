@@ -7,7 +7,7 @@ import Profile from "../../profile./Profile";
 
 async function page_load(props) {
   const userProfile = await fetch(
-    `http://localhost:3005/account/${props[1]}/home`,
+    `http://localhost:3000/account/${props[1]}/home`,
     {
       method: "GET",
       headers: {
@@ -64,7 +64,7 @@ const Post = (props) => {
                     // <div className={classes.img_slide}>
                     <img
                       // key={}
-                      src={`http://localhost:3005/img/gallery/${arr}`}
+                      src={`http://localhost:3000/img/gallery/${arr}`}
                     />
                     // </div>
                   );

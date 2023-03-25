@@ -26,7 +26,7 @@ export default function SignUp() {
     };
     // console.log(obj);
 
-    const token = await fetch("http://localhost:3005/signup", {
+    const token = await fetch("http://localhost:3000/signup", {
       method: "POST",
 
       headers: {

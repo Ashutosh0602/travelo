@@ -32,7 +32,7 @@ const Profile = (props) => {
     formData.append("name", param["userId"]);
     formData.append("newPhoto", file);
     formData.forEach((e) => console.log(e));
-    await fetch("http://localhost:3005/uploadGallery", {
+    await fetch("http://localhost:3000/uploadGallery", {
       method: "POST",
       // headers: {
       //   "Content-Type": "multipart/form-data boundary=MyBoundary",
@@ -79,13 +79,13 @@ const Profile = (props) => {
     <section className={classes.profile}>
       <div className="relative">
         <div className={`${classes.coverpage}`}>
-          <img src={`http://localhost:3005/img/template/cover.jpg`} />
+          <img src={`http://localhost:3000/img/template/cover.jpg`} />
         </div>
         <div className={`absolute ${classes.profileCover}`}>
           <div className="relative">
             <div>
               <img
-                src={`http://localhost:3005/img/users/${userDetail.profilePhoto}`}
+                src={`http://localhost:3000/img/users/${userDetail?.profilePhoto}`}
               />
             </div>
             <div className={` ${classes.addProfile}`}>
@@ -97,17 +97,17 @@ const Profile = (props) => {
       <div className={`flex ${classes.prof_cont}`}>
         <div>
           <div className={`font-black text-xl text-center`}>
-            {userDetail.id}
+            {userDetail?.id}
           </div>
           <div className="font-thin text-sm text-center text-slate-400">
-            {userDetail.city},{userDetail.country}🇮🇳
+            {userDetail?.city},{userDetail?.country}🇮🇳
           </div>
           <div className={`flex justify-evenly mt-8 ${classes.prof_main_but}`}>
             <div className="flex justify-center items-center">
               <span className="text-xl">Travello</span>
             </div>
             <div>
-              <div>{userDetail.Travellers}</div>
+              <div>{userDetail?.Travellers}</div>
               <div>Traveller</div>
             </div>
           </div>
