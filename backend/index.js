@@ -3,23 +3,43 @@ const app = express();
 
 const rateLimit = require("express-rate-limit");
 
+const helmet = require("helmet");
+
+const mongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
+const hpp = require("hpp");
+
 const path = require("path");
 
 const cors = require("cors");
 app.use(cors());
 
 const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
+
+// Data sanitization against NOSql Query injection
+app.use(mongoSanitize());
+
+// Data sanitization against XSS
+app.use(xss());
+
+app.use(hpp());
+
 app.use(express.static(path.join(__dirname, "public")));
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "./db.env" });
+
+// Security HTTP header
+app.use(helmet());
 
 app.use((req, res, next) => {
   // console.log(req.headers);
   next();
 });
 
+// Limit request by user in a hour
 const limiter = rateLimit({
   max: 200,
   windowMs: 60 * 60 * 1000,
