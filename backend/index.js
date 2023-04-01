@@ -18,6 +18,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Data Security
 // Data sanitization against NOSql Query injection
 app.use(mongoSanitize());
 
