@@ -33,6 +33,7 @@ exports.createUser = async (req, res) => {
 
     if (process.env.NODE_ENV === "production") cookie_option.secure = true;
 
+    // Sending token as cookie
     res.cookie("token", token, cookie_option);
 
     res.status(200).json({
