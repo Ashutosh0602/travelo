@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 
 const Profile = (props) => {
+  // console.log(props);
   const param = useParams();
   const [file, setFile] = useState();
 
@@ -23,9 +24,9 @@ const Profile = (props) => {
     }
   }, [props]);
 
-  // console.log(props["post"]);
-
   const userDetail = useSelector((state) => state.userProfile.user);
+
+  // console.log(userDetail);
 
   const postPhoto = async () => {
     const formData = new FormData();

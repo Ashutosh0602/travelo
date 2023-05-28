@@ -4,6 +4,7 @@ import anchor from "../../../assets/anchor.svg";
 import comment from "../../../assets/Comment.svg";
 import love from "../../../assets/love.svg";
 import Profile from "../../profile./Profile";
+import { NavLink } from "react-router-dom";
 
 async function page_load(props) {
   const userProfile = await fetch(
@@ -50,7 +51,7 @@ const Post = (props) => {
           const img = (
             <div className={classes.post_div} key={ph["_id"]}>
               <div className="font-extrabold">
-                {gs["userID"]} /
+                <NavLink to={`${gs["userID"]}`}>{gs["userID"]} /</NavLink>
                 <span className={`font-thin ${classes.city_name}`}>
                   {ph["city"]}
                 </span>
@@ -108,7 +109,7 @@ const Post = (props) => {
       {post_cont(data)}
       <div style={{ display: "none" }}>
         <Profile
-          post={data}
+          post={data?.[0]}
           // post={data[0].filter((e) => e["userID"] == "@dheeraj_dhyiurai_024")}
         />
       </div>

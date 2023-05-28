@@ -21,6 +21,7 @@ export default function Home() {
     userProf = state.userProfile.user;
   });
 
+  console.log(token);
   try {
     const userProfile = fetch(`http://localhost:3005/account/${param.userId}`, {
       method: "GET",

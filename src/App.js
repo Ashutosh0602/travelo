@@ -5,6 +5,7 @@ import Loader from "./components/loader/Loader";
 import Error from "./components/error/Error";
 import Layout from "./components/layout/Layout";
 import Explore from "./components/explore/Explore";
+import UserView from "./components/userView/UserView";
 
 const Chat = React.lazy(() => import("./components/chat/Chat"));
 const Home = React.lazy(() => import("./components/home/Home"));
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="explore" element={<Explore />} />
           <Route path="package" element={<Package />} />
           <Route path="profile" element={<Profile />} />
+          <Route path=":userView" element={<UserView />} />
           {/* </Route> */}
         </Route>
         <Route path="*" element={<Error />} />
